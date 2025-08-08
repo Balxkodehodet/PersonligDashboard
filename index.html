@@ -8,16 +8,47 @@
     <title>Personlig Dashboard</title>
   </head>
   <body>
+    <header><h1>Personlig Dashboard - Bok arkiv</h1></header>
     <section id="dashboard">
       <form>
-        <input
+        Bok tittel:<input
           id="dash-inputtxt"
           type="text"
-          placeholder="Søk etter bøker her"
+          placeholder="Legg til tittel her"
+        />
+        <br />
+        Beskrivelse:
+        <input
+          id="dash-descriptiontxt"
+          type="textarea"
+          placeholder="Legg til beskrivelse her"
+        />
+        <br />
+        Sjanger:
+        <input
+          id="dash-sjangertxt"
+          type="text"
+          placeholder="Legg til sjanger her"
+        />
+        <br />
+        Antall sider:
+        <input
+          id="dash-antallsidertxt"
+          type="text"
+          placeholder="Legg til Antall sider her"
+        />
+
+        <input type="submit" />
+      </form>
+      <form>
+        Søk:<input
+          id="dash-search"
+          type="text"
+          placeholder="Søk etter bok her"
         />
         <input type="submit" />
       </form>
     </section>
-    <section id="bookList"></section>
+    <section id="bookList"><h2>Bok liste:</h2></section>
   </body>
 </html>
