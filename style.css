@@ -1,3 +1,8 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 #dashboard {
   display: flex;
   flex-direction: row;
@@ -6,6 +11,30 @@
   display: flex;
   background-color: rgb(255, 140, 0);
   color: white;
+  padding: 15px;
+  margin: 15px;
+}
+.txtarea {
+  background-color: rgb(255, 140, 0);
+  color: white;
+}
+.inputform {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+#bookList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+img {
+  margin: 0px 15px 0px 0px;
+  height: 100px;
+  width: 150px;
+  object-fit: cover;
+}
+.btn {
   padding: 15px;
   margin: 15px;
 }
