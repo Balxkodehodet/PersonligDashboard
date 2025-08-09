@@ -10,7 +10,7 @@
   <body>
     <header><h1>Personlig Dashboard - Bok arkiv</h1></header>
     <section id="dashboard">
-      <form>
+      <form id="formTxtData">
         Bok tittel:<input
           id="dash-inputtxt"
           type="text"
@@ -38,9 +38,9 @@
           placeholder="Legg til Antall sider her"
         />
 
-        <input type="submit" />
+        <input id="submit-data" type="submit" />
       </form>
-      <form>
+      <form id="search-data">
         Søk:<input
           id="dash-search"
           type="text"
@@ -49,6 +49,7 @@
         <input type="submit" />
       </form>
     </section>
-    <section id="bookList"><h2>Bok liste:</h2></section>
+    <h2>Bok liste:</h2>
+    <section id="bookList"></section>
   </body>
 </html>

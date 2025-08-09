@@ -1,15 +1,19 @@
 // initialize variables:
 let dashboard = document.getElementById("dashboard");
+let dashSearch = document.getElementById("dash-search");
+let submitDataBtn = document.getElementById("submit-data");
 let inputTxt = document.getElementById("dash-inputtxt");
 let inputDescription = document.getElementById("dash-descriptiontxt");
 let inputSjanger = document.getElementById("dash-sjangertxt");
 let inputAntallSider = document.getElementById("dash-antallsidertxt");
 let bookList = [];
 let bookListArea = document.getElementById("bookList");
-
+let formTxtData = document.getElementById("formTxtData");
+let formSearchData = document.getElementById("search-data");
 // Only use if you want to delete localstorage files
 //localStorage.removeItem("bookList");
 
+// Loads stored data at the beginning of the script
 bookList = loadData("bookList");
 
 // Hvis array er tomt og gjort om til undefined eller null av loadData
@@ -29,6 +33,11 @@ function renderPage() {
     let bookTextDesc = document.createElement("input");
     let bookTextGenre = document.createElement("input");
     let bookTextPages = document.createElement("input");
+    let bookTextTitledesc = document.createElement("p");
+    let bookTextDescdesc = document.createElement("p");
+    let bookTextGenredesc = document.createElement("p");
+    let bookTextPagesdesc = document.createElement("p");
+
     bookTextTitle.type = "text";
     bookTextDesc.type = "text";
     bookTextGenre.type = "text";
@@ -36,64 +45,92 @@ function renderPage() {
     let bookImg = document.createElement("img");
     let bookEditBtn = document.createElement("button");
     let bookFavBtn = document.createElement("button");
+    let bookRemoveBtn = document.createElement("button");
 
     bookEditBtn.textContent = "Edit";
     bookFavBtn.textContent = "Favourite";
+    bookRemoveBtn.textContent = "Slett";
 
     bookImg.src = "images/book.jpg";
     bookImg.alt =
       "A huge book opened by a hand with a view of a cloudy forest behind it";
     bookDiv.classList.add("bookdiv");
+    bookDiv.id = `${book.id}`;
     bookEditBtn.classList.add("btn");
     bookFavBtn.classList.add("btn");
-    bookTextTitle.classList.add("txtarea");
-    bookTextDesc.classList.add("txtarea");
-    bookTextGenre.classList.add("txtarea");
-    bookTextPages.classList.add("txtarea");
+    bookRemoveBtn.classList.add("btn");
+    bookTextTitle.classList.add("inputtxtarea");
+    bookTextDesc.classList.add("inputtxtarea");
+    bookTextGenre.classList.add("inputtxtarea");
+    bookTextPages.classList.add("inputtxtarea");
     bookForm.classList.add("inputform");
 
-    let bookTitle = `Bok tittel: ${book.title}.\n`;
-    let bookDesc = `Beskrivelse: ${book.description}.\n`;
-    let bookGenre = `Sjanger: ${book.sjanger}.\n`;
-    let bookPages = `Antall sider: ${book.pages}.\n`;
+    let bookTitle = book.title;
+    let bookDesc = book.description;
+    let bookGenre = book.sjanger;
+    let bookPages = book.pages;
     // Append image to the left of the text
     bookDiv.append(bookImg);
-    // Append title, description, genre, and pages with br between
-    //bookTextArea.readOnly = true;
+    // Assign value title, description, genre, and pages
     bookTextTitle.value = bookTitle;
     bookTextDesc.value = bookDesc;
     bookTextGenre.value = bookGenre;
     bookTextPages.value = bookPages;
-    // bookTextArea.appendChild(document.createElement("br"));
-    // bookTextArea.appendChild(bookDesc);
-    // bookTextArea.appendChild(document.createElement("br"));
-    // bookTextArea.appendChild(bookGenre);
-    // bookTextArea.appendChild(document.createElement("br"));
-    // bookTextArea.appendChild(bookPages);
-    bookForm.append(bookTextTitle, bookTextDesc, bookTextGenre, bookTextPages);
+
+    //Assign text infront of each value
+    bookTextTitledesc.textContent = "Tittel: ";
+    bookTextDescdesc.textContent = "Beskrivelse: ";
+    bookTextGenredesc.textContent = "Sjanger: ";
+    bookTextPagesdesc.textContent = "Sider: ";
+
+    bookForm.append(
+      bookTextTitledesc,
+      bookTextTitle,
+      bookTextDescdesc,
+      bookTextDesc,
+      bookTextGenredesc,
+      bookTextGenre,
+      bookTextPagesdesc,
+      bookTextPages
+    );
     bookDiv.append(bookForm);
     bookDiv.appendChild(bookEditBtn);
     bookDiv.appendChild(bookFavBtn);
+    bookDiv.appendChild(bookRemoveBtn);
     bookListArea.append(bookDiv);
 
-    // Click button event listener
+    // Set title and description etc.. to default readOnly to true so that it cant be edited by default
+    bookTextTitle.readOnly = true;
+    bookTextDesc.readOnly = true;
+    bookTextGenre.readOnly = true;
+    bookTextPages.readOnly = true;
+    // Click button event listener for edit button
     bookEditBtn.addEventListener("click", () => {
+      // Make text editable
+      bookTextTitle.readOnly = !bookTextTitle.readOnly;
+      bookTextDesc.readOnly = !bookTextDesc.readOnly;
+      bookTextGenre.readOnly = !bookTextGenre.readOnly;
+      bookTextPages.readOnly = !bookTextPages.readOnly;
+      bookTextTitle.focus();
+
+      // Assign new values to bookList objects
+      book.title = bookTextTitle.value;
+      book.description = bookTextDesc.value;
+      book.sjanger = bookTextGenre.value;
+      book.pages = bookTextPages.value;
       // Change button name
       bookEditBtn.textContent =
         bookEditBtn.textContent === "Update"
           ? (bookEditBtn.textContent = "Edit")
           : (bookEditBtn.textContent = "Update");
-      // create text area to change title
-      // let bookTxtform = document.createElement("form");
-      // let bookTxtArea = document.createElement("textarea");
-      // let bookTxtSubmit = document.createElement("input");
-      // bookTxtSubmit.type = "submit";
-      // bookTxtform.append(bookTxtArea, bookTxtSubmit);
-      // bookDiv.append(bookTxtform);
-
-      bookDiv.readOnly = !bookDiv.readOnly;
-      //bookDiv.textContent = bookDiv.value;
-      bookDiv.focus();
+      saveData("bookList", bookList);
+    });
+    // Click button event listener for remove button
+    bookRemoveBtn.addEventListener("click", () => {
+      bookListArea.removeChild(bookDiv);
+      bookList = bookList.filter((b) => b.id !== book.id);
+      saveData("bookList", bookList);
+      renderPage();
     });
   });
 }
@@ -101,7 +138,7 @@ renderPage();
 
 console.log(inputDescription.value, inputTxt.value);
 
-dashboard.addEventListener("submit", (e) => {
+formTxtData.addEventListener("submit", (e) => {
   e.preventDefault();
   bookList.push({
     id: bookList.length,
@@ -114,6 +151,11 @@ dashboard.addEventListener("submit", (e) => {
   console.log(bookList);
   console.log(inputTxt.value, "was stored");
   renderPage();
+});
+
+formSearchData.addEventListener("submit", () => {
+  console.log(bookList.title);
+  console.log(dashSearch.value);
 });
 
 function saveData(objName, objContent) {
