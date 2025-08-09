@@ -14,6 +14,7 @@ let formSearchData = document.getElementById("search-data");
 let searchResults = false;
 let resetSearch = document.getElementById("resetSearch");
 
+resetSearch.value = "Send";
 // Only use if you want to delete localstorage files
 //localStorage.removeItem("bookList");
 
@@ -138,6 +139,7 @@ function renderPage(bookArray) {
     });
   });
 }
+// Function to render search results when you search for a book
 function renderSearchResults() {
   renderPage(bookFiltered);
 }
@@ -171,15 +173,22 @@ formTxtData.addEventListener("submit", (e) => {
 // Eventlistener on search button submitted to form
 formSearchData.addEventListener("submit", (e) => {
   e.preventDefault();
-  searchResults === true;
-  bookFiltered = bookList.filter((b) =>
-    b.title.toLowerCase().includes(dashSearch.value.toLowerCase())
-  );
   resetSearch.value =
     resetSearch.value === "Send"
       ? (resetSearch.value = "Reset")
       : (resetSearch.value = "Send");
-  renderSearchResults();
+  searchResults === true;
+  bookFiltered = bookList.filter((b) =>
+    b.title.toLowerCase().includes(dashSearch.value.toLowerCase())
+  );
+  // Because resetSearch.value has already been switched check for the opposite
+  if (resetSearch.value === "Reset") {
+    console.log("Send was pushed render search results...");
+    renderSearchResults();
+  } else if (resetSearch.value === "Send") {
+    console.log("Reset was pushed render search results...");
+    renderPage(bookList);
+  }
   console.log(bookFiltered);
 });
 function saveData(objName, objContent) {
