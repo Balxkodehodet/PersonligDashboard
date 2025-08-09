@@ -191,6 +191,8 @@ formSearchData.addEventListener("submit", (e) => {
   }
   console.log(bookFiltered);
 });
+
+// Functions to ease the way to save and load to localStorage
 function saveData(objName, objContent) {
   return localStorage.setItem(objName, JSON.stringify(objContent));
 }
