@@ -160,6 +160,20 @@ function renderPage(bookArray) {
         renderPage(bookList);
       }, 1000);
     });
+    // Add variables for addeventlistener for Favourite button
+    let addedFavImg = false;
+    let favImg = document.createElement("img");
+    // The addeventlistener itself for favourite button
+    bookFavBtn.addEventListener("click", () => {
+      if (addedFavImg === false) {
+        favImg.src = "images/star.png";
+        bookDiv.append(favImg);
+        addedFavImg = true;
+      } else {
+        bookDiv.removeChild(favImg);
+        addedFavImg = false;
+      }
+    });
   });
 }
 // Function to render search results when you search for a book
@@ -250,10 +264,12 @@ formSearchData.addEventListener("input", (e) => {
 deleteData.addEventListener("submit", (e) => {
   e.preventDefault();
   let bookFullListArea = document.querySelectorAll(".bookdiv");
+  // For each book div add delete animations class
   bookFullListArea.forEach((book) => {
     book.classList.add("delete");
     console.log(bookFullListArea.length);
   });
+  // Set timeout so that it deletes data and runs after the animation has run
   setTimeout(() => {
     console.log("Slett knappen ble trykket på");
     localStorage.removeItem("bookList");
@@ -263,7 +279,7 @@ deleteData.addEventListener("submit", (e) => {
       bookList = []; // gjør det om til tomt array igjen
     }
     renderPage(bookList);
-  }, 1000);
+  }, 1000); // Wait for 1 (1000ms) second
 });
 // Functions to ease the way to save and load to localStorage
 function saveData(objName, objContent) {

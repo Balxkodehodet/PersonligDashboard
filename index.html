@@ -11,19 +11,21 @@
     <header><h1>Personlig Dashboard - Bok arkiv</h1></header>
     <section id="dashboard">
       <form id="formTxtData">
-        Bok tittel:<input
+        <label for="dash-inputtxt"> Bok tittel:</label
+        ><input
           id="dash-inputtxt"
           type="text"
           placeholder="Legg til tittel her"
         />
         <br />
-        Forfatter:<input
+        <label for="dash-authortxt"> Forfatter:</label
+        ><input
           id="dash-authortxt"
           type="text"
           placeholder="Legg til forfatter her"
         />
         <br />
-        Beskrivelse:
+        <label for="dash-descriptiontxt"> Beskrivelse:</label>
         <textarea
           id="dash-descriptiontxt"
           rows="8"
@@ -31,7 +33,7 @@
         >
         </textarea>
         <br />
-        Sjanger:
+        <label for="dash-sjangertxt"> Sjanger:</label>
         <input
           id="dash-sjangertxt"
           type="text"
@@ -57,7 +59,8 @@
       </form>
 
       <form id="search-data-author">
-        Søk etter forfatter:<input
+        <label for="dash-search-author"> Søk etter forfatter:</label
+        ><input
           id="dash-search-author"
           type="text"
           placeholder="Søk etter forfatter her"
@@ -65,8 +68,8 @@
         <input class="btn" id="resetSearchAuthor" type="submit" />
       </form>
       <br />
-      <form>
-        <label for="valg">Velg</label>
+      <form id="sortering">
+        <label for="valg">Velg sortering</label>
         <select class="selectbtn" id="valg">
           <option value="Alfabetisk - tittel">Alfabetisk - tittel</option>
           <option value="Alfabetisk - forfatter">Alfabetisk - forfatter</option>
