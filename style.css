@@ -16,6 +16,7 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  flex-wrap: wrap;
 }
 .bookdiv {
   display: flex;
@@ -51,7 +52,13 @@ img {
   margin: 15px;
   height: 25%;
 }
-#formTxtData {
+textarea {
+  resize: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-input {
+form {
+  padding: 15px;
+  margin: 15px;
 }

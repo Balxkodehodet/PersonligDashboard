@@ -13,8 +13,12 @@ let formTxtData = document.getElementById("formTxtData");
 let formSearchData = document.getElementById("search-data");
 let searchResults = false;
 let resetSearch = document.getElementById("resetSearch");
+let deleteData = document.getElementById("delete-data");
+let deleteBooks = document.getElementById("delete-books");
 
 resetSearch.value = "Send";
+deleteBooks.value = "Slett";
+submitDataBtn.value = "Lagre bok";
 // Only use if you want to delete localstorage files
 //localStorage.removeItem("bookList");
 
@@ -191,7 +195,28 @@ formSearchData.addEventListener("submit", (e) => {
   }
   console.log(bookFiltered);
 });
+// Eventlistnere for text typing in the form search data
+formSearchData.addEventListener("input", (e) => {
+  e.preventDefault();
+  searchResults === true;
+  bookFiltered = bookList.filter((b) =>
+    b.title.toLowerCase().includes(dashSearch.value.toLowerCase())
+  );
+  renderSearchResults();
+});
 
+// Slett alle bøker
+deleteData.addEventListener("submit", (e) => {
+  e.preventDefault();
+  console.log("Slett knappen ble trykket på");
+  localStorage.removeItem("bookList");
+  bookList = loadData("bookList");
+  // Hvis array er tomt og gjort om til undefined eller null av loadData
+  if (Array.isArray(bookList) !== true) {
+    bookList = []; // gjør det om til tomt array igjen
+  }
+  renderPage(bookList);
+});
 // Functions to ease the way to save and load to localStorage
 function saveData(objName, objContent) {
   return localStorage.setItem(objName, JSON.stringify(objContent));

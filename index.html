@@ -18,11 +18,12 @@
         />
         <br />
         Beskrivelse:
-        <input
+        <textarea
           id="dash-descriptiontxt"
-          type="textarea"
+          rows="8"
           placeholder="Legg til beskrivelse her"
-        />
+        >
+        </textarea>
         <br />
         Sjanger:
         <input
@@ -47,6 +48,11 @@
           placeholder="Søk etter bok tittel her"
         />
         <input id="resetSearch" type="submit" />
+      </form>
+      <br />
+      <form id="delete-data">
+        Slett alle bøker:
+        <input id="delete-books" type="submit" />
       </form>
     </section>
     <h2>Bok liste:</h2>
