@@ -17,6 +17,12 @@
           placeholder="Legg til tittel her"
         />
         <br />
+        Forfatter:<input
+          id="dash-authortxt"
+          type="text"
+          placeholder="Legg til forfatter her"
+        />
+        <br />
         Beskrivelse:
         <textarea
           id="dash-descriptiontxt"
@@ -39,7 +45,7 @@
           placeholder="Legg til Antall sider her"
         />
 
-        <input id="submit-data" type="submit" />
+        <input class="btn" id="submit-data" type="submit" />
       </form>
       <form id="search-data">
         Søk etter tittel:<input
@@ -47,12 +53,34 @@
           type="text"
           placeholder="Søk etter bok tittel her"
         />
-        <input id="resetSearch" type="submit" />
+        <input class="btn" id="resetSearch" type="submit" />
+      </form>
+
+      <form id="search-data-author">
+        Søk etter forfatter:<input
+          id="dash-search-author"
+          type="text"
+          placeholder="Søk etter forfatter her"
+        />
+        <input class="btn" id="resetSearchAuthor" type="submit" />
       </form>
       <br />
+      <form>
+        <label for="valg">Velg</label>
+        <select class="selectbtn" id="valg">
+          <option value="Alfabetisk - tittel">Alfabetisk - tittel</option>
+          <option value="Alfabetisk - forfatter">Alfabetisk - forfatter</option>
+          <option value="Antall sider - lavt til høyt">
+            Antall sider - lavt til høyt
+          </option>
+          <option value="Antall sider - høyt til lavt">
+            Antall sider - høyt til lavt
+          </option>
+        </select>
+      </form>
       <form id="delete-data">
         Slett alle bøker:
-        <input id="delete-books" type="submit" />
+        <input class="btn" id="delete-books" type="submit" />
       </form>
     </section>
     <h2>Bok liste:</h2>

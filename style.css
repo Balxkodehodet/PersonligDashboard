@@ -25,6 +25,30 @@ body {
   padding: 15px;
   margin: 15px;
   width: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: opacity 1s ease;
+}
+.bookdiv:hover {
+  display: flex;
+  background-color: rgb(255, 140, 0);
+  color: white;
+  padding: 15px;
+  margin: 15px;
+  width: 100%;
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.delete {
+  opacity: 0;
+  transform: scale(0.95);
+}
+input {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+input:hover {
+  transform: scale(1.05);
+  background-color: rgb(247, 175, 87);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 .inputtxtarea {
   background-color: rgb(255, 140, 0);
@@ -47,16 +71,29 @@ img {
   width: 150px;
   object-fit: cover;
 }
+.selectbtn {
+  padding: 5px;
+  margin: 5px;
+  align-items: center;
+  text-align: center;
+}
 .btn {
   padding: 15px;
   margin: 15px;
+  text-align: center;
+}
+.bookdiv .btn {
   height: 25%;
+  padding: 15px;
+  margin: 15px;
+  text-align: center;
 }
 textarea {
   resize: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 8px;
+  vertical-align: top;
+  text-align: left;
+  line-height: 1.4;
 }
 form {
   padding: 15px;
