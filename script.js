@@ -22,6 +22,7 @@ let deleteData = document.getElementById("delete-data");
 let deleteBooks = document.getElementById("delete-books");
 let showAllFavForm = document.getElementById("show-fav");
 let sortForm = document.getElementById("sortering");
+let totalBooksEachGenre = document.createElement("p");
 
 resetSearch.value = "Send";
 showFavBooksBtn.value = "Send";
@@ -37,6 +38,25 @@ bookList = loadData("bookList");
 if (Array.isArray(bookList) !== true) {
   bookList = []; // gjør det om til tomt array igjen
 }
+
+// Show books by genre through reduce
+const booksByGenre = bookList.reduce((acc, bookGenre) => {
+  acc[bookGenre.sjanger] = (acc[bookGenre.sjanger] || 0) + 1;
+  return acc;
+}, {});
+console.log("BOOKS BY GENRE: ", booksByGenre);
+
+totalBooksEachGenre.textContent += " Totalt bøker i Sjanger: ";
+for (let genre in booksByGenre) {
+  totalBooksEachGenre.textContent += " ";
+  totalBooksEachGenre.textContent += genre;
+  totalBooksEachGenre.textContent += " : ";
+  totalBooksEachGenre.textContent += booksByGenre[genre];
+  totalBooksEachGenre.textContent += " bøker! ";
+}
+
+totalBooksEachGenre.classList.add("each-genre");
+dashboard.append(totalBooksEachGenre);
 
 function renderPage(bookArray) {
   while (bookListArea.firstChild) {
@@ -125,7 +145,7 @@ function renderPage(bookArray) {
     bookDiv.appendChild(bookFavBtn);
     bookDiv.appendChild(bookRemoveBtn);
     if (book.isFavourite) {
-      // Add variables for addeventlistener for Favourite button
+      // Create favourite star and append it to book
       const favImg = document.createElement("img");
       favImg.src = "images/star.png";
       favImg.alt = "A yellow golden star";
