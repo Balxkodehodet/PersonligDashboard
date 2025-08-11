@@ -74,6 +74,7 @@ function renderPage(bookArray) {
     bookImg.src = "images/book.jpg";
     bookImg.alt =
       "A huge book opened by a hand with a view of a cloudy forest behind it";
+    bookImg.classList.add("book-img");
     bookDiv.classList.add("bookdiv");
     bookDiv.id = `${book.id}`;
     bookEditBtn.classList.add("btn");
@@ -180,6 +181,7 @@ function renderPage(bookArray) {
         // Only create img if book.isfavourite..
         const favImg = document.createElement("img");
         favImg.src = "images/star.png";
+        favImg.classList.add("fav-img");
         if (!bookDiv.contains(favImg)) {
           bookDiv.append(favImg);
         }
@@ -314,7 +316,7 @@ showAllFavForm.addEventListener("submit", (e) => {
     showFavBooksBtn.value === "Send"
       ? (showFavBooksBtn.value = "Reset")
       : (showFavBooksBtn.value = "Send");
-  searchResults === true;
+  searchResults = true;
   bookFiltered = bookList.filter((b) => b.isFavourite);
   // Because showFavBooksBtn.value has already been switched check for the opposite
   if (showFavBooksBtn.value === "Reset") {
