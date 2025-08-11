@@ -119,6 +119,14 @@ function renderPage(bookArray) {
     bookDiv.appendChild(bookEditBtn);
     bookDiv.appendChild(bookFavBtn);
     bookDiv.appendChild(bookRemoveBtn);
+    if (book.isFavourite) {
+      // Add variables for addeventlistener for Favourite button
+      const favImg = document.createElement("img");
+      favImg.src = "images/star.png";
+      favImg.alt = "A yellow golden star";
+      favImg.classList.add("fav-img");
+      bookDiv.appendChild(favImg);
+    }
     bookListArea.append(bookDiv);
 
     // Set title and description etc.. to default readOnly to true so that it cant be edited by default
@@ -160,18 +168,22 @@ function renderPage(bookArray) {
         renderPage(bookList);
       }, 1000);
     });
-    // Add variables for addeventlistener for Favourite button
-    let addedFavImg = false;
-    let favImg = document.createElement("img");
     // The addeventlistener itself for favourite button
     bookFavBtn.addEventListener("click", () => {
-      if (addedFavImg === false) {
+      book.isFavourite = !book.isFavourite;
+      saveData("bookList", bookList);
+      if (book.isFavourite) {
+        // Only create img if book.isfavourite..
+        const favImg = document.createElement("img");
         favImg.src = "images/star.png";
-        bookDiv.append(favImg);
-        addedFavImg = true;
+        if (!bookDiv.contains(favImg)) {
+          bookDiv.append(favImg);
+        }
       } else {
-        bookDiv.removeChild(favImg);
-        addedFavImg = false;
+        const existingFavImg = bookDiv.querySelector(".fav-img");
+        if (existingFavImg) {
+          bookDiv.removeChild(existingFavImg);
+        }
       }
     });
   });
@@ -181,8 +193,8 @@ function renderSearchResults() {
   renderPage(bookFiltered);
 }
 
-// if search button has not been clicked render page as usual
 if (searchResults === false) {
+  // if search button has not been clicked render page as usual
   renderPage(bookList);
 }
 // else if search button has been clicked render search results
@@ -201,6 +213,7 @@ formTxtData.addEventListener("submit", (e) => {
     description: inputDescription.value,
     sjanger: inputSjanger.value,
     pages: inputAntallSider.value,
+    isFavourite: false,
   });
   saveData("bookList", bookList);
   console.log(bookList);
