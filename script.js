@@ -44,7 +44,6 @@ const booksByGenre = bookList.reduce((acc, bookGenre) => {
   acc[bookGenre.sjanger] = (acc[bookGenre.sjanger] || 0) + 1;
   return acc;
 }, {});
-console.log("BOOKS BY GENRE: ", booksByGenre);
 
 totalBooksEachGenre.textContent += " Totalt bøker i Sjanger: ";
 for (let genre in booksByGenre) {
