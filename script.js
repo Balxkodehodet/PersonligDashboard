@@ -234,7 +234,7 @@ formSearchAuthor.addEventListener("input", (e) => {
   );
   renderSearchResults();
 });
-
+// Eventlistener for submit search data for author
 formSearchAuthor.addEventListener("submit", (e) => {
   e.preventDefault();
   resetSearchAuthor.value =
@@ -245,7 +245,7 @@ formSearchAuthor.addEventListener("submit", (e) => {
   bookFiltered = bookList.filter((b) =>
     b.author.toLowerCase().includes(dashSearchAuthor.value.toLowerCase())
   );
-  // Because resetSearch.value has already been switched check for the opposite
+  // Because resetSearchAuthor.value has already been switched check for the opposite
   if (resetSearchAuthor.value === "Reset") {
     console.log("Send was pushed render search results...");
     renderSearchResults();
@@ -274,7 +274,6 @@ formSearchData.addEventListener("submit", (e) => {
     console.log("Reset was pushed render search results...");
     renderPage(bookList);
   }
-  console.log(bookFiltered);
 });
 
 // Eventlistnere for text typing in the form search data
@@ -317,7 +316,7 @@ showAllFavForm.addEventListener("submit", (e) => {
       : (showFavBooksBtn.value = "Send");
   searchResults === true;
   bookFiltered = bookList.filter((b) => b.isFavourite);
-  // Because resetSearch.value has already been switched check for the opposite
+  // Because showFavBooksBtn.value has already been switched check for the opposite
   if (showFavBooksBtn.value === "Reset") {
     console.log("Send was pushed render search results...");
     renderSearchResults();
@@ -333,7 +332,8 @@ sortForm.addEventListener("change", (e) => {
   renderPage(bookList);
 });
 
-// funksjon for å sortere bøker
+// funksjon for å sortere bøker, alfabetisk etter forfatter eller tittel,
+// eller etter antall sider lavt/høyt eller høyt/lavt
 function sortBooks(booksToSort, sortMethod) {
   if (sortMethod === "Alfabetisk - forfatter") {
     booksToSort.sort((a, b) => a.author.localeCompare(b.author));
