@@ -21,6 +21,7 @@ let showFavBooksBtn = document.getElementById("show-favbooks");
 let deleteData = document.getElementById("delete-data");
 let deleteBooks = document.getElementById("delete-books");
 let showAllFavForm = document.getElementById("show-fav");
+let sortForm = document.getElementById("sortering");
 
 resetSearch.value = "Send";
 showFavBooksBtn.value = "Send";
@@ -224,6 +225,16 @@ formTxtData.addEventListener("submit", (e) => {
   renderPage(bookList);
 });
 
+// Eventlistnere for text typing in the form search data for author
+formSearchAuthor.addEventListener("input", (e) => {
+  e.preventDefault();
+  searchResults === true;
+  bookFiltered = bookList.filter((b) =>
+    b.author.toLowerCase().includes(dashSearchAuthor.value.toLowerCase())
+  );
+  renderSearchResults();
+});
+
 formSearchAuthor.addEventListener("submit", (e) => {
   e.preventDefault();
   resetSearchAuthor.value =
@@ -253,7 +264,7 @@ formSearchData.addEventListener("submit", (e) => {
       : (resetSearch.value = "Send");
   searchResults === true;
   bookFiltered = bookList.filter((b) =>
-    b.title.toLowerCase().includes(dashSearchAuthor.value.toLowerCase())
+    b.title.toLowerCase().includes(dashSearch.value.toLowerCase())
   );
   // Because resetSearch.value has already been switched check for the opposite
   if (resetSearch.value === "Reset") {
@@ -283,9 +294,8 @@ deleteData.addEventListener("submit", (e) => {
   // For each book div add delete animations class
   bookFullListArea.forEach((book) => {
     book.classList.add("delete");
-    console.log(bookFullListArea.length);
   });
-  // Set timeout so that it deletes data and runs after the animation has run
+  // Set timeout so that it deletes data and runs AFTER the animation has run
   setTimeout(() => {
     console.log("Slett knappen ble trykket på");
     localStorage.removeItem("bookList");
@@ -316,6 +326,29 @@ showAllFavForm.addEventListener("submit", (e) => {
     renderPage(bookList);
   }
 });
+// Kode for å sortere bøkene alfabetisk eller etter antall sider.
+sortForm.addEventListener("change", (e) => {
+  e.preventDefault();
+  bookList = sortBooks(bookList, e.target.value);
+  renderPage(bookList);
+});
+
+// funksjon for å sortere bøker
+function sortBooks(booksToSort, sortMethod) {
+  if (sortMethod === "Alfabetisk - forfatter") {
+    booksToSort.sort((a, b) => a.author.localeCompare(b.author));
+    return booksToSort;
+  } else if (sortMethod === "Alfabetisk - tittel") {
+    booksToSort.sort((a, b) => a.title.localeCompare(b.title));
+    return booksToSort;
+  } else if (sortMethod === "Antall sider - lavt til høyt") {
+    booksToSort.sort((a, b) => a.pages - b.pages);
+    return booksToSort;
+  } else if (sortMethod === "Antall sider - høyt til lavt") {
+    booksToSort.sort((a, b) => b.pages - a.pages);
+    return booksToSort;
+  }
+}
 // Functions to ease the way to save and load to localStorage
 function saveData(objName, objContent) {
   return localStorage.setItem(objName, JSON.stringify(objContent));
