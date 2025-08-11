@@ -8,8 +8,8 @@ let inputAuthor = document.getElementById("dash-authortxt");
 let inputDescription = document.getElementById("dash-descriptiontxt");
 let inputSjanger = document.getElementById("dash-sjangertxt");
 let inputAntallSider = document.getElementById("dash-antallsidertxt");
-let bookList = [];
-let bookFiltered = [];
+let bookList = []; // BookList to contain all books
+let bookFiltered = []; // Array to contain all books that are filtered through search or favourites
 let bookListArea = document.getElementById("bookList");
 let formTxtData = document.getElementById("formTxtData");
 let formSearchData = document.getElementById("search-data");
@@ -17,10 +17,13 @@ let formSearchAuthor = document.getElementById("search-data-author");
 let searchResults = false;
 let resetSearch = document.getElementById("resetSearch");
 let resetSearchAuthor = document.getElementById("resetSearchAuthor");
+let showFavBooksBtn = document.getElementById("show-favbooks");
 let deleteData = document.getElementById("delete-data");
 let deleteBooks = document.getElementById("delete-books");
+let showAllFavForm = document.getElementById("show-fav");
 
 resetSearch.value = "Send";
+showFavBooksBtn.value = "Send";
 deleteBooks.value = "Slett";
 submitDataBtn.value = "Lagre bok";
 // Only use if you want to delete localstorage files
@@ -293,6 +296,25 @@ deleteData.addEventListener("submit", (e) => {
     }
     renderPage(bookList);
   }, 1000); // Wait for 1 (1000ms) second
+});
+
+// eventlistener to show all favourites on submit button
+showAllFavForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  showFavBooksBtn.value =
+    showFavBooksBtn.value === "Send"
+      ? (showFavBooksBtn.value = "Reset")
+      : (showFavBooksBtn.value = "Send");
+  searchResults === true;
+  bookFiltered = bookList.filter((b) => b.isFavourite);
+  // Because resetSearch.value has already been switched check for the opposite
+  if (showFavBooksBtn.value === "Reset") {
+    console.log("Send was pushed render search results...");
+    renderSearchResults();
+  } else if (showFavBooksBtn.value === "Send") {
+    console.log("Reset was pushed render search results...");
+    renderPage(bookList);
+  }
 });
 // Functions to ease the way to save and load to localStorage
 function saveData(objName, objContent) {
