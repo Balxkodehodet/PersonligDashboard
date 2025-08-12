@@ -51,7 +51,7 @@ genreBtn.classList.add("btn");
 
 //Add eventListener for oppdater sjanger knappen
 genreBtn.addEventListener("click", () => updateGenre);
-// Show books by genre through reduce
+// function to Show books by genre through reduce
 function updateGenre(books) {
   const booksByGenre = books.reduce((acc, bookGenre) => {
     acc[bookGenre.sjanger] = (acc[bookGenre.sjanger] || 0) + 1;
