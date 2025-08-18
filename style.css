@@ -139,6 +139,12 @@ h2 {
 .fav-img {
   animation: fadeScaleIn 0.4s ease-out;
 }
+footer {
+  text-align: center;
+  padding: 15px;
+  margin: 15px;
+  background-color: rgba(169, 107, 0, 0.5);
+}
 @keyframes fadeScaleIn {
   0% {
     opacity: 0;
