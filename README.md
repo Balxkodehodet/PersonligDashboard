@@ -2,3 +2,4 @@ Et personlig dashboard der du kan legge til dine leste bøker, søke etter bøke
 Du kan også sortere bøkene alfabetisk eller på andre måter.
 Det er også mulig å se hvor mange bøker som er i hvilken sjanger.
 Skrevet i Javascript, html og css.
+https://balxkodehodet.github.io/PersonligDashboard/
